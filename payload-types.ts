@@ -65,33 +65,99 @@ export interface UserAuthOperations {
  */
 export interface TourLocation {
   id: string;
-  start?: string | null;
-  end?: string | null;
-  city?: string | null;
-  address?: string | null;
-  /**
-   * @minItems 2
-   * @maxItems 2
-   */
-  venue?: [number, number] | null;
   description?: {
-    root: {
-      type: string;
-      children: {
+    city?: string | null;
+    state?:
+      | (
+          | 'AL'
+          | 'AK'
+          | 'AZ'
+          | 'AR'
+          | 'CA'
+          | 'CO'
+          | 'CT'
+          | 'DE'
+          | 'FL'
+          | 'GA'
+          | 'HI'
+          | 'ID'
+          | 'IL'
+          | 'IN'
+          | 'IA'
+          | 'KS'
+          | 'KY'
+          | 'LA'
+          | 'ME'
+          | 'MD'
+          | 'MA'
+          | 'MI'
+          | 'MN'
+          | 'MS'
+          | 'MO'
+          | 'MT'
+          | 'NE'
+          | 'NV'
+          | 'NH'
+          | 'NJ'
+          | 'NM'
+          | 'NY'
+          | 'NC'
+          | 'ND'
+          | 'OH'
+          | 'OK'
+          | 'OR'
+          | 'PA'
+          | 'RI'
+          | 'SC'
+          | 'SD'
+          | 'TN'
+          | 'TX'
+          | 'UT'
+          | 'VT'
+          | 'VA'
+          | 'WA'
+          | 'WV'
+          | 'WI'
+          | 'WY'
+        )
+      | null;
+    description?: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  banner?: (string | null) | Media;
+      };
+      [k: string]: unknown;
+    } | null;
+    banner?: (string | null) | Media;
+  };
+  locationTimes?: {
+    venueName?: string | null;
+    address?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+  };
+  information?: {
+    ticketGroups?:
+      | {
+          name?: string | null;
+          price?: number | null;
+          amount?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -195,15 +261,38 @@ export interface PayloadMigration {
  * via the `definition` "tourLocations_select".
  */
 export interface TourLocationsSelect<T extends boolean = true> {
-  start?: T;
-  end?: T;
-  city?: T;
-  address?: T;
-  venue?: T;
-  description?: T;
-  banner?: T;
+  description?:
+    | T
+    | {
+        city?: T;
+        state?: T;
+        description?: T;
+        banner?: T;
+      };
+  locationTimes?:
+    | T
+    | {
+        venueName?: T;
+        address?: T;
+        startTime?: T;
+        endTime?: T;
+      };
+  information?:
+    | T
+    | {
+        ticketGroups?:
+          | T
+          | {
+              name?: T;
+              price?: T;
+              amount?: T;
+              id?: T;
+            };
+      };
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
