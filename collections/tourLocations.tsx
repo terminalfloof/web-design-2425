@@ -179,6 +179,10 @@ export const tourLocations: CollectionConfig = {
 			},
 		},
 	],
+	labels: {
+		singular: 'Tour Location',
+		plural: 'Tour Locations',
+	},
 	admin: {
 		livePreview: {
 			url: 'http://localhost:3000/about',
