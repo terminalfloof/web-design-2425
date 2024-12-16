@@ -8,7 +8,6 @@ import { media } from './collections/media';
 import { stripePlugin } from '@payloadcms/plugin-stripe';
 import { users } from './collections/user';
 import { merchandise } from './collections/merchandise';
-import { customers } from './collections/customers';
 import { merchCategory } from './collections/merchCategory';
 
 export default buildConfig({
@@ -16,14 +15,7 @@ export default buildConfig({
 	editor: lexicalEditor(),
 
 	// Define and configure your collections in this array
-	collections: [
-		tourLocations,
-		media,
-		users,
-		merchandise,
-		customers,
-		merchCategory,
-	],
+	collections: [tourLocations, media, users, merchandise, merchCategory],
 	plugins: [
 		vercelBlobStorage({
 			collections: {
@@ -58,12 +50,12 @@ export default buildConfig({
 					],
 				},
 				{
-					collection: 'customers',
+					collection: 'users',
 					stripeResourceType: 'customers',
 					stripeResourceTypeSingular: 'customer',
 					fields: [
 						{
-							fieldPath: 'name',
+							fieldPath: 'username',
 							stripeProperty: 'name',
 						},
 						{
