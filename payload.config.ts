@@ -32,34 +32,6 @@ export default buildConfig({
 			token: process.env.VERCEL_BLOB_TOKEN || '',
 		}),
 		stripePlugin({
-			// webhooks: {
-			// 	'product.updated': async ({ event, stripe, payload, req }) => {
-			// 		// get unit price
-			// 		const priceData = await stripe.prices.retrieve(
-			// 			event.data.object.default_price
-			// 		);
-			// 		console.log(priceData);
-			// 		if (priceData.unit_amount === null)
-			// 			throw new Error('ruh roh no unit amount');
-			// 		const adjustedPrice = parseFloat(
-			// 			(priceData.unit_amount / 100).toFixed(2)
-			// 		);
-
-			// 		// ..and update the corresponding entry
-			// 		await payload.update({
-			// 			collection: 'merchandise',
-			// 			// id: productEntry.docs[0].id,
-			// 			where: {
-			// 				stripeID: {
-			// 					equals: event.data.object.id,
-			// 				},
-			// 			},
-			// 			data: {
-			// 				price: adjustedPrice,
-			// 			},
-			// 		});
-			// 	},
-			// },
 			stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
 			// stripe webhooks on event
 			stripeWebhooksEndpointSecret:
