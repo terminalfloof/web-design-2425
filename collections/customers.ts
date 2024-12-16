@@ -1,10 +1,11 @@
 import type { CollectionConfig } from 'payload';
 
-export const media: CollectionConfig = {
-	slug: 'media',
+export const customers: CollectionConfig = {
+	slug: 'customers',
+	auth: true,
 	fields: [
 		{
-			name: 'alt',
+			name: 'name',
 			type: 'text',
 			required: true,
 		},

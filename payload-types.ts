@@ -9,20 +9,31 @@
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    customers: CustomerAuthOperations;
   };
   collections: {
     tourLocations: TourLocation;
     media: Media;
     users: User;
+    merchandise: Merchandise;
+    customers: Customer;
+    merchCategory: MerchCategory;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    merchCategory: {
+      merchEntries: 'merchandise';
+    };
+  };
   collectionsSelect: {
     tourLocations: TourLocationsSelect<false> | TourLocationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    merchandise: MerchandiseSelect<false> | MerchandiseSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
+    merchCategory: MerchCategorySelect<false> | MerchCategorySelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -33,9 +44,13 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Customer & {
+        collection: 'customers';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -59,68 +74,83 @@ export interface UserAuthOperations {
     password: string;
   };
 }
+export interface CustomerAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tourLocations".
  */
 export interface TourLocation {
   id: string;
-  description?: {
-    city?: string | null;
-    state?:
-      | (
-          | 'AL'
-          | 'AK'
-          | 'AZ'
-          | 'AR'
-          | 'CA'
-          | 'CO'
-          | 'CT'
-          | 'DE'
-          | 'FL'
-          | 'GA'
-          | 'HI'
-          | 'ID'
-          | 'IL'
-          | 'IN'
-          | 'IA'
-          | 'KS'
-          | 'KY'
-          | 'LA'
-          | 'ME'
-          | 'MD'
-          | 'MA'
-          | 'MI'
-          | 'MN'
-          | 'MS'
-          | 'MO'
-          | 'MT'
-          | 'NE'
-          | 'NV'
-          | 'NH'
-          | 'NJ'
-          | 'NM'
-          | 'NY'
-          | 'NC'
-          | 'ND'
-          | 'OH'
-          | 'OK'
-          | 'OR'
-          | 'PA'
-          | 'RI'
-          | 'SC'
-          | 'SD'
-          | 'TN'
-          | 'TX'
-          | 'UT'
-          | 'VT'
-          | 'VA'
-          | 'WA'
-          | 'WV'
-          | 'WI'
-          | 'WY'
-        )
-      | null;
+  description: {
+    city: string;
+    state:
+      | 'AL'
+      | 'AK'
+      | 'AZ'
+      | 'AR'
+      | 'CA'
+      | 'CO'
+      | 'CT'
+      | 'DE'
+      | 'FL'
+      | 'GA'
+      | 'HI'
+      | 'ID'
+      | 'IL'
+      | 'IN'
+      | 'IA'
+      | 'KS'
+      | 'KY'
+      | 'LA'
+      | 'ME'
+      | 'MD'
+      | 'MA'
+      | 'MI'
+      | 'MN'
+      | 'MS'
+      | 'MO'
+      | 'MT'
+      | 'NE'
+      | 'NV'
+      | 'NH'
+      | 'NJ'
+      | 'NM'
+      | 'NY'
+      | 'NC'
+      | 'ND'
+      | 'OH'
+      | 'OK'
+      | 'OR'
+      | 'PA'
+      | 'RI'
+      | 'SC'
+      | 'SD'
+      | 'TN'
+      | 'TX'
+      | 'UT'
+      | 'VT'
+      | 'VA'
+      | 'WA'
+      | 'WV'
+      | 'WI'
+      | 'WY';
     description?: {
       root: {
         type: string;
@@ -138,11 +168,11 @@ export interface TourLocation {
     } | null;
     banner?: (string | null) | Media;
   };
-  locationTimes?: {
-    venueName?: string | null;
-    address?: string | null;
-    startTime?: string | null;
-    endTime?: string | null;
+  locationTimes: {
+    venueName: string;
+    address: string;
+    startTime: string;
+    endTime: string;
   };
   information?: {
     ticketGroups?:
@@ -165,7 +195,7 @@ export interface TourLocation {
  */
 export interface Media {
   id: string;
-  alt?: string | null;
+  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -184,7 +214,65 @@ export interface Media {
  */
 export interface User {
   id: string;
-  roles: ('user' | 'admin')[];
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merchandise".
+ */
+export interface Merchandise {
+  id: string;
+  name: string;
+  description?: string | null;
+  active?: boolean | null;
+  price?: number | null;
+  images?:
+    | {
+        image: string | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stock?: number | null;
+  category?: (string | null) | MerchCategory;
+  stripeID?: string | null;
+  skipSync?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merchCategory".
+ */
+export interface MerchCategory {
+  id: string;
+  name?: string | null;
+  description?: string | null;
+  merchEntries?: {
+    docs?: (string | Merchandise)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: string;
+  name: string;
+  stripeID?: string | null;
+  skipSync?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -214,12 +302,29 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'merchandise';
+        value: string | Merchandise;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: string | Customer;
+      } | null)
+    | ({
+        relationTo: 'merchCategory';
+        value: string | MerchCategory;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: string | Customer;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -229,10 +334,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: string | Customer;
+      };
   key?: string | null;
   value?:
     | {
@@ -318,7 +428,6 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -328,6 +437,58 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merchandise_select".
+ */
+export interface MerchandiseSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  active?: T;
+  price?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  stock?: T;
+  category?: T;
+  stripeID?: T;
+  skipSync?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  stripeID?: T;
+  skipSync?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "merchCategory_select".
+ */
+export interface MerchCategorySelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  merchEntries?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

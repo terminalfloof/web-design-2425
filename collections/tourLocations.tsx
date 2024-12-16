@@ -71,6 +71,7 @@ const description: Tab = {
 					},
 				],
 			},
+			required: true,
 		},
 		{
 			name: 'state',
@@ -79,6 +80,7 @@ const description: Tab = {
 				label: state.name,
 				value: state.abbreviation,
 			})),
+			required: true,
 		},
 		{
 			name: 'description',
@@ -99,10 +101,12 @@ const location: Tab = {
 		{
 			name: 'venueName',
 			type: 'text',
+			required: true,
 		},
 		{
 			name: 'address',
 			type: 'text',
+			required: true,
 		},
 		{
 			name: 'startTime',
@@ -113,6 +117,7 @@ const location: Tab = {
 					timeIntervals: 15,
 				},
 			},
+			required: true,
 		},
 		{
 			name: 'endTime',
@@ -123,6 +128,7 @@ const location: Tab = {
 					timeIntervals: 15,
 				},
 			},
+			required: true,
 		},
 	],
 };
