@@ -35,6 +35,11 @@ export const users: CollectionConfig = {
 			unique: true,
 			required: true,
 		},
+		{
+			name: 'avatar',
+			type: 'relationship',
+			relationTo: 'media',
+		},
 	],
 	admin: {
 		useAsTitle: 'email',

@@ -171,6 +171,7 @@ export interface TourLocation {
 export interface Media {
   id: string;
   alt: string;
+  author?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -182,6 +183,16 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    avatar?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -191,6 +202,7 @@ export interface User {
   id: string;
   roles: ('user' | 'admin')[];
   username: string;
+  avatar?: (string | null) | Media;
   stripeID?: string | null;
   skipSync?: boolean | null;
   updatedAt: string;
@@ -356,6 +368,7 @@ export interface TourLocationsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  author?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -367,6 +380,20 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        avatar?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -375,6 +402,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   username?: T;
+  avatar?: T;
   stripeID?: T;
   skipSync?: T;
   updatedAt?: T;
