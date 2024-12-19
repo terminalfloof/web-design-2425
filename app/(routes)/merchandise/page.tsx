@@ -13,13 +13,13 @@ const Merchandise = async () => {
 	return (
 		<>
 			{categories.docs.map((category) => (
-				<div>
+				<div key={category.id}>
 					<strong>{category.name}</strong>
 					<ul>
 						{category.merchEntries?.docs?.map((document) => {
 							const doc = document as Merch;
 							return (
-								<li>
+								<li key={doc.id}>
 									<i>
 										{doc.name} - ${doc.price}
 									</i>
