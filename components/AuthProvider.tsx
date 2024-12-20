@@ -8,7 +8,9 @@ import React, {
 } from 'react';
 import { User } from '@/payload-types';
 import { z } from 'zod';
-import { loginSchema } from './User';
+import { loginSchema } from '@/components/login-form';
+import { useToast } from '@/hooks/use-toast';
+import { redirect } from 'next/navigation';
 
 type Login = (args: z.infer<typeof loginSchema>) => Promise<void>;
 
@@ -29,6 +31,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [user, setUser] = useState<User | null>();
 	const [loaded, setLoaded] = useState(false);
+	const { toast } = useToast();
 
 	const login = useCallback<Login>(async (args) => {
 		const res = await fetch(`/api/users/login`, {
@@ -43,8 +46,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (res.ok) {
 			const json = await res.json();
 			setUser(json.user);
+			toast({
+				title: 'Logged in successfully!',
+				description: `Welcome back, ${json.user.username}.`,
+			});
+			redirect('/');
 		} else {
-			throw new Error('Invalid login');
+			toast({
+				title: "Couldn't log in!",
+				description: 'Did you type in the right email or password?',
+			});
+			console.log(res);
 		}
 	}, []);
 
