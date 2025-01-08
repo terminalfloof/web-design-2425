@@ -38,7 +38,7 @@ export default function RootLayout({
 					enableSystem
 					// disableTransitionOnChange
 				>
-					<SidebarProvider>
+					<SidebarProvider defaultOpen={false}>
 						<AuthProvider>
 							<AppSidebar />
 							<main>
