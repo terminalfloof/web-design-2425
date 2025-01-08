@@ -4,6 +4,8 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/components/AuthProvider';
 import { Toaster } from '@/components/ui/toaster';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -36,10 +38,16 @@ export default function RootLayout({
 					enableSystem
 					// disableTransitionOnChange
 				>
-					<AuthProvider>
-						{children}
-						<Toaster />
-					</AuthProvider>
+					<SidebarProvider>
+						<AuthProvider>
+							<AppSidebar />
+							<main>
+								<SidebarTrigger />
+								{children}
+								<Toaster />
+							</main>
+						</AuthProvider>
+					</SidebarProvider>
 				</ThemeProvider>
 			</body>
 		</html>
