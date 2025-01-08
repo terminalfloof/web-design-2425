@@ -1,17 +1,9 @@
-import {
-	Calendar,
-	Home,
-	Inbox,
-	MicVocal,
-	Search,
-	Send,
-	Settings,
-	Store,
-} from 'lucide-react';
+import { Home, MicVocal, Send, Store } from 'lucide-react';
 
 import {
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
@@ -19,6 +11,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import User from './User';
 
 // Menu items.
 const items = [
@@ -46,7 +39,7 @@ const items = [
 
 export function AppSidebar() {
 	return (
-		<Sidebar collapsible="icon">
+		<Sidebar collapsible="icon" variant="floating">
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarGroupLabel>Stage Fright</SidebarGroupLabel>
@@ -66,6 +59,9 @@ export function AppSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
+			<SidebarFooter>
+				<User />
+			</SidebarFooter>
 		</Sidebar>
 	);
 }

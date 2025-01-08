@@ -1,55 +1,96 @@
 'use client';
-import React from 'react';
-import { DropdownMenu, DropdownMenuContent } from './ui/dropdown-menu';
+
 import {
+	BadgeCheck,
+	Bell,
+	ChevronsUpDown,
+	CreditCard,
+	LogOut,
+	LogIn,
+	Sparkles,
+	User as UserIcon,
+} from 'lucide-react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-import type { Media } from '@/payload-types';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { useAuth } from '@/components/AuthProvider';
+} from '@/components/ui/dropdown-menu';
+import {
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+	useSidebar,
+} from '@/components/ui/sidebar';
+import { useAuth } from './AuthProvider';
+import { Media } from '@/payload-types';
 import { Button } from './ui/button';
+import { redirect } from 'next/navigation';
 
 export default function User() {
-	const { logout, user, loaded } = useAuth();
-	console.log(user);
+	const { isMobile } = useSidebar();
 
-	return !loaded ? (
-		<h1>loading...</h1>
-	) : user ? (
-		<div className="relative">
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant="ghost" className="w-fit py-2 h-12">
-						<Avatar className="h-8 w-8 rounded-lg">
-							<AvatarImage
-								src={(user?.avatar as Media)?.url || ''}
-								alt={user.username}
-							/>
-							<AvatarFallback className="rounded-lg">
-								{user.username.substring(0, 2)}
-							</AvatarFallback>
-						</Avatar>
-						<div className="grid flex-1 text-left text-sm leading-tight">
-							<span className="truncate font-semibold">
-								{user.username}
-							</span>
-							<span className="truncate text-xs">
-								{user.email}
-							</span>
-						</div>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent>
-					<DropdownMenuItem onClick={logout}>
-						Log Out
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
-		</div>
+	const { open } = useSidebar();
+	const { user, loaded, login, logout } = useAuth();
+
+	return user ? (
+		<SidebarMenu>
+			<SidebarMenuItem>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<SidebarMenuButton
+							size="lg"
+							className={
+								'data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
+							}
+							asChild={!user}
+						>
+							<Avatar className="h-8 w-8 rounded-lg">
+								<AvatarImage
+									src={(user?.avatar as Media)?.url || ''}
+									alt={user.username}
+								/>
+								<AvatarFallback className="rounded-lg">
+									CN
+								</AvatarFallback>
+							</Avatar>
+							<div className="grid flex-1 text-left text-sm leading-tight">
+								<span className="truncate font-semibold">
+									{user.username}
+								</span>
+								<span className="truncate text-xs">
+									{user.email}
+								</span>
+							</div>
+							<ChevronsUpDown className="ml-auto size-4" />
+						</SidebarMenuButton>
+					</DropdownMenuTrigger>
+					{user && (
+						<DropdownMenuContent
+							className="w-[--radix-dropdown-menu-trigger-width] min-w-40 rounded-lg"
+							side={isMobile ? 'bottom' : 'right'}
+							align="end"
+							sideOffset={4}
+						>
+							<DropdownMenuItem onClick={logout}>
+								<LogOut />
+								Log out
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					)}
+				</DropdownMenu>
+			</SidebarMenuItem>
+		</SidebarMenu>
+	) : open ? (
+		<Button onClick={() => redirect('/login')}>Log In</Button>
 	) : (
-		<a href="/login">
-			<Button>Log In</Button>
-		</a>
+		<Button onClick={() => redirect('/login')}>
+			<LogIn />
+		</Button>
 	);
 }
