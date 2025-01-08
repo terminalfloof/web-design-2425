@@ -21,6 +21,10 @@ import {
 	FormLabel,
 	FormMessage,
 } from './ui/form';
+import { useEffect, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 export const loginSchema = z.object({
 	email: z.string().email(),
@@ -31,6 +35,8 @@ export function LoginForm({
 	className,
 	...props
 }: React.ComponentPropsWithoutRef<'div'>) {
+	const { toast } = useToast();
+	const [loading, setLoading] = useState(false);
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
@@ -39,7 +45,21 @@ export function LoginForm({
 		},
 	});
 
-	const { login } = useAuth();
+	const { login, user } = useAuth();
+
+	useEffect(() => {
+		console.log(user);
+		if (user) {
+			toast({ title: "You're already logged in!" });
+			redirect('/');
+		}
+	}, [user]);
+
+	async function handleSubmit(data: z.infer<typeof loginSchema>) {
+		setLoading(true);
+		await login(data);
+		setLoading(false);
+	}
 
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -52,7 +72,7 @@ export function LoginForm({
 				</CardHeader>
 				<CardContent>
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(login)}>
+						<form onSubmit={form.handleSubmit(handleSubmit)}>
 							<div className="flex flex-col gap-6">
 								<FormField
 									control={form.control}
@@ -96,8 +116,22 @@ export function LoginForm({
 										</FormItem>
 									)}
 								/>
-								<Button type="submit" className="w-full">
-									Login
+								<Button
+									type="submit"
+									disabled={loading}
+									// asChild
+								>
+									<div
+										className={cn(
+											'flex items-center justify-center gap-1',
+											loading ? 'opacity-50' : ''
+										)}
+									>
+										<span>Login</span>
+										{loading && (
+											<LoaderCircle className="w-5 h-5 ml-2 animate-spin" />
+										)}
+									</div>
 								</Button>
 								{/* <Button variant="outline" className="w-full">
 									Login with Google

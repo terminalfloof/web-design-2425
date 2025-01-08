@@ -21,9 +21,10 @@ import {
 	FormLabel,
 	FormMessage,
 } from './ui/form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { redirect } from 'next/navigation';
 
 export const loginSchema = z
 	.object({
@@ -36,6 +37,8 @@ export const loginSchema = z
 		message: 'Passwords do not match!',
 		path: ['confirmPassword'],
 	});
+
+// TODO: stripe pushes registered users despite it being a field being invalid, pls fix soon
 
 export function RegisterForm({
 	className,
@@ -53,7 +56,14 @@ export function RegisterForm({
 		},
 	});
 
-	const { login } = useAuth();
+	const { login, user } = useAuth();
+
+	useEffect(() => {
+		if (user) {
+			toast({ title: "You're already logged in!" });
+			redirect('/');
+		}
+	}, [user]);
 
 	async function handleSubmit(data: z.infer<typeof loginSchema>) {
 		if (loading) return;
