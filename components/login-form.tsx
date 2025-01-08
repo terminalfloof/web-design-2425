@@ -64,7 +64,7 @@ export function LoginForm({
 												<Input
 													type="email"
 													required
-													placeholder="m@example.com"
+													placeholder="email@example.com"
 													autoComplete="off"
 													{...field}
 												/>

@@ -12,7 +12,7 @@ export const users: CollectionConfig = {
 			options: roles,
 			hasMany: true,
 			required: true,
-			defaultValue: 'user',
+			defaultValue: ['user'],
 			hooks: {
 				beforeChange: [
 					({ data, req }) => {
@@ -51,5 +51,6 @@ export const users: CollectionConfig = {
 			if (user && user.roles.includes('admin')) return true;
 			return false;
 		},
+		create: () => true,
 	},
 };
