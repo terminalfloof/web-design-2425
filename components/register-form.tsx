@@ -63,7 +63,7 @@ export function RegisterForm({
 			toast({ title: "You're already logged in!" });
 			redirect('/');
 		}
-	}, [user]);
+	}, [user, toast]);
 
 	async function handleSubmit(data: z.infer<typeof loginSchema>) {
 		if (loading) return;
@@ -110,8 +110,8 @@ export function RegisterForm({
 				<CardHeader>
 					<CardTitle className="text-2xl">Register</CardTitle>
 					<CardDescription>
-						We're glad you're here! Enter your email below to create
-						an account.
+						We&apos;re glad you&apos;re here! Enter your email below
+						to create an account.
 					</CardDescription>
 				</CardHeader>
 				<CardContent>

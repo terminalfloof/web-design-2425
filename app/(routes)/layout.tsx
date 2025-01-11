@@ -41,8 +41,8 @@ export default function RootLayout({
 					<SidebarProvider defaultOpen={false}>
 						<AuthProvider>
 							<AppSidebar />
-							<main>
-								<SidebarTrigger />
+							<main className="flex-1">
+								<SidebarTrigger className="absolute bg-background size-8 z-10 top-2" />
 								{children}
 								<Toaster />
 							</main>

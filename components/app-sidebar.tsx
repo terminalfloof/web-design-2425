@@ -1,5 +1,6 @@
+'use client';
 import { Home, MicVocal, Send, Store } from 'lucide-react';
-
+import Logo from '@/public/sf-light.svg';
 import {
 	Sidebar,
 	SidebarContent,
@@ -7,11 +8,15 @@ import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
+	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	useSidebar,
 } from '@/components/ui/sidebar';
 import User from './User';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 // Menu items.
 const items = [
@@ -38,11 +43,22 @@ const items = [
 ];
 
 export function AppSidebar() {
+	const { open } = useSidebar();
 	return (
 		<Sidebar collapsible="icon" variant="floating">
+			<SidebarHeader className="flex items-center mt-2">
+				<Image
+					className={cn(
+						'duration-300 ease-out transition-[width] size-6',
+						open && 'size-16'
+					)}
+					src={Logo}
+					alt="Stage Fright"
+				/>
+			</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup>
-					<SidebarGroupLabel>Stage Fright</SidebarGroupLabel>
+					{/* <SidebarGroupLabel>Stage Fright</SidebarGroupLabel> */}
 					<SidebarGroupContent>
 						<SidebarMenu>
 							{items.map((item) => (

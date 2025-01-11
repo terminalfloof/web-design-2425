@@ -23,4 +23,7 @@ export const media: CollectionConfig = {
 			},
 		],
 	},
+	access: {
+		read: () => true,
+	},
 };

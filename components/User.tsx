@@ -1,25 +1,14 @@
 'use client';
 
-import {
-	BadgeCheck,
-	Bell,
-	ChevronsUpDown,
-	CreditCard,
-	LogOut,
-	LogIn,
-	Sparkles,
-	User as UserIcon,
-} from 'lucide-react';
+import { ChevronsUpDown, LogOut, LogIn, SquarePen } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
+	DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import {
 	SidebarMenu,
@@ -31,12 +20,13 @@ import { useAuth } from './AuthProvider';
 import { Media } from '@/payload-types';
 import { Button } from './ui/button';
 import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function User() {
-	const { isMobile } = useSidebar();
+	const { isMobile, open } = useSidebar();
+	const { user, logout } = useAuth();
 
-	const { open } = useSidebar();
-	const { user, loaded, login, logout } = useAuth();
+	useEffect(() => console.log(user), [user]);
 
 	return user ? (
 		<SidebarMenu>
@@ -56,7 +46,9 @@ export default function User() {
 									alt={user.username}
 								/>
 								<AvatarFallback className="rounded-lg">
-									CN
+									{user.username
+										.substring(0, 2)
+										.toUpperCase()}
 								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
@@ -77,6 +69,15 @@ export default function User() {
 							align="end"
 							sideOffset={4}
 						>
+							<DropdownMenuItem className="font-bold">
+								Roles
+							</DropdownMenuItem>
+							{user.roles.map((role) => (
+								<DropdownMenuItem key={role}>
+									{role}
+								</DropdownMenuItem>
+							))}
+							<DropdownMenuSeparator />
 							<DropdownMenuItem onClick={logout}>
 								<LogOut />
 								Log out
@@ -86,11 +87,19 @@ export default function User() {
 				</DropdownMenu>
 			</SidebarMenuItem>
 		</SidebarMenu>
-	) : open ? (
-		<Button onClick={() => redirect('/login')}>Log In</Button>
+	) : open || isMobile ? (
+		<>
+			<Button onClick={() => redirect('/login')}>Log In</Button>
+			<Button onClick={() => redirect('/register')}>Register</Button>
+		</>
 	) : (
-		<Button onClick={() => redirect('/login')}>
-			<LogIn />
-		</Button>
+		<>
+			<Button onClick={() => redirect('/login')}>
+				<LogIn />
+			</Button>
+			<Button onClick={() => redirect('/register')}>
+				<SquarePen />
+			</Button>
+		</>
 	);
 }

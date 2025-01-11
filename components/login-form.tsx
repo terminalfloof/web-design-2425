@@ -53,7 +53,7 @@ export function LoginForm({
 			toast({ title: "You're already logged in!" });
 			redirect('/');
 		}
-	}, [user]);
+	}, [user, toast]);
 
 	async function handleSubmit(data: z.infer<typeof loginSchema>) {
 		setLoading(true);

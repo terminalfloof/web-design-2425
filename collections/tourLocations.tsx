@@ -143,7 +143,6 @@ const tickets: Tab = {
 			minRows: 1,
 			fields: [
 				{
-					unique: true,
 					name: 'name',
 					type: 'text',
 					label: 'Ticket Group Name',
