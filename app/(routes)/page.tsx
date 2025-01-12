@@ -8,12 +8,16 @@ export default function Home() {
 		<>
 			{/* Contain the video */}
 			<div className="flex flex-col justify-center relative h-[66vh] pl-12">
-				<h1 className="text-4xl my-2">We are Stage Fright</h1>
+				<h1 className="text-4xl my-2">We are Stage Fright.</h1>
 				<p className="w-2/5">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna
-					aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-					ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Stage Fright was founded to merge the members&apos; love of
+					theatrics with the flair and style of Rock and Roll! In the
+					spirit of both art and rebellion, the band believes in
+					accessibility and expression for all. For this reason, all
+					tickets to our upcoming national tour can be bought through
+					our website without the need to go through unethical third
+					parties. Thank you all for your support. Keep livin&apos;
+					live on the stage, and keep on rocking!
 				</p>
 				<div className="w-1/2 h-full from-black opacity-90 from-20% to-transparent bg-gradient-to-r absolute left-0 top-0 -z-10"></div>
 				<video
