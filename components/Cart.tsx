@@ -13,7 +13,7 @@ import {
 	AlertDialogFooter,
 } from './ui/alert-dialog';
 import { ScrollArea } from './ui/scroll-area';
-import { RotateCw, ShoppingCart, ShoppingCartIcon, X } from 'lucide-react';
+import { RotateCw, ShoppingCart, X } from 'lucide-react';
 import {
 	Sheet,
 	SheetTrigger,
@@ -57,7 +57,7 @@ export default function Cart() {
 					aria-label="your cart"
 					className="top-2 absolute right-4 z-10 grid size-8 cursor-pointer place-items-center rounded-md transition-all hover:bg-muted active:scale-95"
 				>
-					<ShoppingCartIcon className="scale-90" />
+					<ShoppingCart className="scale-90" />
 					{items.length > 0 && (
 						<div className="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-red-700 text-sm">
 							<span>
@@ -87,8 +87,8 @@ export default function Cart() {
 														{currentItem.quantity >
 														1
 															? currentItem.quantity +
-																'x ' +
-																currentItem.item
+															  'x ' +
+															  currentItem.item
 																	.name
 															: currentItem.item
 																	.name}

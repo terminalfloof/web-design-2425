@@ -1,8 +1,7 @@
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { Media, Merchandise as Merch, MerchCategory } from '@/payload-types';
+import { Media } from '@/payload-types';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 const Merchandise = async () => {
@@ -45,7 +44,10 @@ const Merchandise = async () => {
 			<div className="grid grid-cols-4 gap-6">
 				{merchandise.totalDocs > 0 &&
 					merchandise.docs.map((merch) => (
-						<Link href={`/merchandise/item/${merch.id}`}>
+						<Link
+							href={`/merchandise/item/${merch.id}`}
+							key={merch.id}
+						>
 							<div className="w-full group h-full flex flex-col items-center justify-center py-8 px-4 cursor-pointer">
 								{merch.images && (
 									<div className="aspect-1 w-5/6 overflow-hidden bg-white relative">

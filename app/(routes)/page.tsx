@@ -1,4 +1,3 @@
-import Ticker from '@/components/home-ticker';
 import MemberHighlight from '@/components/member-highlight';
 
 export const dynamic = 'force-dynamic';

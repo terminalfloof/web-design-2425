@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 			throw new Error('There was a problem while logging out.');
 		}
-	}, []);
+	}, [toast]);
 
 	useEffect(() => {
 		const fetchMe = async () => {
