@@ -103,6 +103,7 @@ export const merchandise: CollectionConfig = {
 			name: 'category',
 			type: 'relationship',
 			relationTo: 'merchCategory',
+			required: true,
 		},
 	],
 	labels: {

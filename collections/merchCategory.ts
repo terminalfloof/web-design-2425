@@ -17,6 +17,12 @@ export const merchCategory: CollectionConfig = {
 			collection: 'merchandise',
 			on: 'category',
 		},
+		{
+			name: 'banner',
+			required: false,
+			type: 'relationship',
+			relationTo: 'media',
+		},
 	],
 	admin: {
 		useAsTitle: 'name',

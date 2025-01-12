@@ -21,6 +21,11 @@ export const media: CollectionConfig = {
 				width: 128,
 				height: 128,
 			},
+			{
+				name: 'banner',
+				width: 1600,
+				height: 400,
+			},
 		],
 	},
 	access: {

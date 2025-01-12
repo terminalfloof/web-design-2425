@@ -192,6 +192,14 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
+    banner?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
 }
 /**
@@ -234,7 +242,7 @@ export interface Merchandise {
       }[]
     | null;
   stock?: number | null;
-  category?: (string | null) | MerchCategory;
+  category: string | MerchCategory;
   stripeID?: string | null;
   skipSync?: boolean | null;
   updatedAt: string;
@@ -252,6 +260,7 @@ export interface MerchCategory {
     docs?: (string | Merchandise)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  banner?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -393,6 +402,16 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        banner?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -446,6 +465,7 @@ export interface MerchCategorySelect<T extends boolean = true> {
   name?: T;
   description?: T;
   merchEntries?: T;
+  banner?: T;
   updatedAt?: T;
   createdAt?: T;
 }
