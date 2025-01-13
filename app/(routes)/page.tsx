@@ -20,7 +20,7 @@ export default function Home() {
 				</p>
 				<div className="w-1/2 h-full from-black opacity-90 from-20% to-transparent bg-gradient-to-r absolute left-0 top-0 -z-10"></div>
 				<video
-					src="/api/media/file/bocchi.mp4"
+					src="/api/media/file/Band.mp4"
 					// controls
 					autoPlay
 					loop
@@ -31,48 +31,51 @@ export default function Home() {
 			{/* make the musicians or smth */}
 			<div className="flex h-64">
 				<MemberHighlight
-					hoveredLink="/api/media/file/rui-alt.png"
-					unhoveredLink="/api/media/file/rui-normal.png"
-					profileLink="/api/media/file/rui-profile.png"
-					name="Kamishiro Rui"
+					hoveredLink="/api/media/file/Singer-Transparent.png"
+					unhoveredLink="/api/media/file/Singer-Transparent.png"
+					profileLink="/api/media/file/Singer.jpg"
+					name="Kelsey Finn"
 				>
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
+					Kelsey is the lead singer and lyricist of Stage Fright.
+					After discovering her love of singing at a young age, Kelsey
+					explored music through all avenues including choir and
+					theathre; however, she has found her home on the stage with
+					Stage Fright. Her incredible vocals bring life and strength
+					the band&apos;s message and artistry.
 				</MemberHighlight>
 				<MemberHighlight
-					hoveredLink="/api/media/file/rui-alt.png"
-					unhoveredLink="/api/media/file/rui-normal.png"
-					profileLink="/api/media/file/rui-profile.png"
-					name="Kamishiro Rui"
+					hoveredLink="/api/media/file/Drummer-transparent.png"
+					unhoveredLink="/api/media/file/Drummer-transparent.png"
+					profileLink="/api/media/file/Drummer.jpg"
+					name="Keith Nelson"
 				>
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
+					Keith is the steady beat that keeps the band going. He first
+					fell in love with the drums after joining his high school
+					band, and he hasn&apos;t looked back sense. His strong
+					rhythmic presence gives the band&apos;s music supreme depth!
 				</MemberHighlight>
 				<MemberHighlight
-					hoveredLink="/api/media/file/rui-alt.png"
-					unhoveredLink="/api/media/file/rui-normal.png"
-					profileLink="/api/media/file/rui-profile.png"
-					name="Kamishiro Rui"
+					hoveredLink="/api/media/file/Bassist-transparent.png"
+					unhoveredLink="/api/media/file/Bassist-transparent.png"
+					profileLink="/api/media/file/Bassist.jpg"
+					name="Ethan Lewis"
 				>
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
+					Ethan provides the basis for a beautiful rhythm section for
+					the band with his incredible skills on the bass guitar.
+					Ethan has always been a performer and storyteller, and he
+					brings that same captivating creativity to the band.
 				</MemberHighlight>
 				<MemberHighlight
-					hoveredLink="/api/media/file/rui-alt.png"
-					unhoveredLink="/api/media/file/rui-normal.png"
-					profileLink="/api/media/file/rui-profile.png"
-					name="Kamishiro Rui"
+					hoveredLink="/api/media/file/Guitarist-transparent.png"
+					unhoveredLink="/api/media/file/Guitarist-transparent.png"
+					profileLink="/api/media/file/Guitarist.jpg"
+					name="Ryan Oleson"
 				>
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
-					This thing is keeping me hostage, please come and help me D:
+					Ryan brings energy and miraculous melody to the band&apos;s
+					presence as its lead guitar player. He has always had a love
+					for expressing ideas through music that reach many different
+					types of people. He is honored to share his music with the
+					band and their audience.
 				</MemberHighlight>
 			</div>
 		</>

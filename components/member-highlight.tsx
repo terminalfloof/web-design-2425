@@ -33,14 +33,14 @@ export default function MemberHighlight({
 						alt={name}
 						layout="fill"
 						objectFit="contain"
-						className="block scale-90 -z-10 opacity-100 grayscale group-hover:opacity-0 group-hover:translate-x-0 translate-x-4 transition-all duration-300 ease-out"
+						className="block -z-10 opacity-100 grayscale group-hover:opacity-0 group-hover:translate-x-4 translate-x-8 transition-all duration-300 ease-out"
 					/>
 					<Image
 						src={hoveredLink}
 						alt={name}
 						layout="fill"
 						objectFit="contain"
-						className="opacity-0 scale-90 -z-10 group-hover:opacity-100 transition-all duration-300 ease-out group-hover:translate-x-4 translate-x-8"
+						className="opacity-0 -z-10 group-hover:opacity-100 transition-all duration-300 ease-out group-hover:translate-x-8 translate-x-12"
 					/>
 
 					<h3 className="transform text-lg group-hover:scale-150 origin-bottom-left group-hover:font-bold w-fit transition-transform duration-300 ease-out">
@@ -54,9 +54,8 @@ export default function MemberHighlight({
 						<Image
 							src={profileLink}
 							alt={name}
-							layout="fill"
-							objectFit="contain"
-							className="rounded-lg"
+							fill
+							className="rounded-lg object-cover"
 						/>
 					</div>
 
