@@ -32,33 +32,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [user, setUser] = useState<User | null>();
 	const [loaded, setLoaded] = useState(false);
 
-	const login = useCallback<Login>(
-		async (args) => {
-			const res = await fetch(`/api/users/login`, {
-				method: 'POST',
-				body: JSON.stringify(args),
-				credentials: 'include',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+	const login = useCallback<Login>(async (args) => {
+		const res = await fetch(`/api/users/login`, {
+			method: 'POST',
+			body: JSON.stringify(args),
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 
-			if (res.ok) {
-				const json = await res.json();
-				setUser(json.user);
-				toast.success('Logged in successfully!', {
-					description: `Welcome back, ${json.user.username}.`,
-				});
-				redirect('/');
-			} else {
-				toast.error("Couldn't log in!", {
-					description: 'Did you type in the right email or password?',
-				});
-				console.log(res);
-			}
-		},
-		[toast]
-	);
+		if (res.ok) {
+			const json = await res.json();
+			setUser(json.user);
+			toast.success('Logged in successfully!', {
+				description: `Welcome back, ${json.user.username}.`,
+			});
+			redirect('/');
+		} else {
+			toast.error("Couldn't log in!", {
+				description: 'Did you type in the right email or password?',
+			});
+			console.log(res);
+		}
+	}, []);
 
 	const logout = useCallback<Logout>(async () => {
 		const res = await fetch(`/api/users/logout`, {
@@ -77,7 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 			throw new Error('There was a problem while logging out.');
 		}
-	}, [toast]);
+	}, []);
 
 	useEffect(() => {
 		const fetchMe = async () => {

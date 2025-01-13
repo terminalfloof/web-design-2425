@@ -1,4 +1,5 @@
 import { CartItem } from '@/components/CartContext';
+import { Merchandise } from '@/payload-types';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
@@ -16,7 +17,8 @@ export async function POST(req: NextRequest) {
 						product_data: {
 							name: item.item.name || 'missing name!!',
 							// todo: fix this crappy patch
-							description: (item.item as any).description || '',
+							description:
+								(item.item as Merchandise).description || '',
 						},
 						unit_amount: Math.round((item.item.price || 0) * 100),
 					},

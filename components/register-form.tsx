@@ -62,7 +62,7 @@ export function RegisterForm({
 			toast.error("You're already logged in!");
 			redirect('/');
 		}
-	}, [user, toast]);
+	}, [user]);
 
 	async function handleSubmit(data: z.infer<typeof loginSchema>) {
 		if (loading) return;

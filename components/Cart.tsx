@@ -24,6 +24,7 @@ import {
 import { CartContext } from './CartContext';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { Merchandise } from '@/payload-types';
 
 export default function Cart() {
 	const [isLoading, setLoading] = React.useState(false);
@@ -110,7 +111,7 @@ export default function Cart() {
 													{
 														// todo: fix this crappy patch
 														(
-															currentItem.item as any
+															currentItem.item as Merchandise
 														).description
 													}
 												</h2>

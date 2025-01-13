@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Media } from '@/payload-types';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import moment from 'moment';
-import { Button } from '@/components/ui/button';
 import AddToCartTickets from '@/components/addToCartTickets';
 
 export default async function Page({
@@ -55,14 +54,16 @@ export default async function Page({
 					<h2 className="mb-4 text-lg font-light tracking-wide">
 						{city.locationTimes.venueName}
 					</h2>
-					<RichText
-						className="[&>h1]:text-2xl [&>h1]:font-bold [&>h1]:tracking-tight lg:[&>h1]:text-3xl"
-						data={city.description.description as any}
-					/>
+					{city.description.description && (
+						<RichText
+							className="[&>h1]:text-2xl [&>h1]:font-bold [&>h1]:tracking-tight lg:[&>h1]:text-3xl"
+							data={city.description.description}
+						/>
+					)}
 					<div className="flex gap-4 mt-4">
 						{city.information?.ticketGroups &&
 							city.information.ticketGroups.map((group) => (
-								<AddToCartTickets item={group}>
+								<AddToCartTickets item={group} key={group.id}>
 									{group.name} - ${group.price}
 								</AddToCartTickets>
 							))}

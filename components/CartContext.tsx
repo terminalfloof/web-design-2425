@@ -35,7 +35,7 @@ export default function CartContextComponent({
 }) {
 	const [items, setItems] = useState<CartItem[]>([]);
 
-	function addItem(item: Merchandise): boolean {
+	function addItem(item: Merchandise | TicketGroup): boolean {
 		const index = items.findIndex((i) => i.item.name === item.name);
 		if (index === -1) {
 			if (items.length < 100) {
