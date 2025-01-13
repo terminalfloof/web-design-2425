@@ -3,13 +3,20 @@ import { Merchandise } from '@/payload-types';
 import { ReactNode, createContext, useState } from 'react';
 
 export type CartItem = {
-	item: Merchandise;
+	item: Merchandise | TicketGroup;
 	quantity: number;
+};
+
+export type TicketGroup = {
+	name?: string | null;
+	price?: number | null;
+	amount?: number | null;
+	id?: string | null;
 };
 
 export const CartContext = createContext<{
 	items: CartItem[];
-	addItem: (item: Merchandise) => boolean;
+	addItem: (item: Merchandise | TicketGroup) => boolean;
 	removeItem: (name: string) => boolean;
 }>({
 	items: [],

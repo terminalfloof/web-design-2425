@@ -108,8 +108,10 @@ export default function Cart() {
 
 												<h2 className="mr-4 text-sm font-light">
 													{
-														currentItem.item
-															.description
+														// todo: fix this crappy patch
+														(
+															currentItem.item as any
+														).description
 													}
 												</h2>
 											</div>
@@ -144,7 +146,7 @@ export default function Cart() {
 														if (
 															removeItem(
 																currentItem.item
-																	.name
+																	.name || ''
 															)
 														) {
 															toast.success(
