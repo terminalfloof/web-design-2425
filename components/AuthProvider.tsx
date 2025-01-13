@@ -9,8 +9,8 @@ import React, {
 import { User } from '@/payload-types';
 import { z } from 'zod';
 import { loginSchema } from '@/components/login-form';
-import { useToast } from '@/hooks/use-toast';
 import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
 
 type Login = (args: z.infer<typeof loginSchema>) => Promise<void>;
 
@@ -31,7 +31,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [user, setUser] = useState<User | null>();
 	const [loaded, setLoaded] = useState(false);
-	const { toast } = useToast();
 
 	const login = useCallback<Login>(
 		async (args) => {
@@ -47,14 +46,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			if (res.ok) {
 				const json = await res.json();
 				setUser(json.user);
-				toast({
-					title: 'Logged in successfully!',
+				toast.success('Logged in successfully!', {
 					description: `Welcome back, ${json.user.username}.`,
 				});
 				redirect('/');
 			} else {
-				toast({
-					title: "Couldn't log in!",
+				toast.error("Couldn't log in!", {
 					description: 'Did you type in the right email or password?',
 				});
 				console.log(res);
@@ -71,13 +68,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 		if (res.ok) {
 			setUser(null);
-			toast({
-				title: 'Logged out successfully!',
+			toast.success('Logged out successfully!', {
 				description: 'You have been logged out.',
 			});
 		} else {
-			toast({
-				title: "Couldn't log out!",
+			toast.error("Couldn't log out!", {
 				description: 'Please try again.',
 			});
 			throw new Error('There was a problem while logging out.');

@@ -24,7 +24,7 @@ import {
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 export const loginSchema = z.object({
 	email: z.string().email(),
@@ -35,7 +35,6 @@ export function LoginForm({
 	className,
 	...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-	const { toast } = useToast();
 	const [loading, setLoading] = useState(false);
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
@@ -50,7 +49,7 @@ export function LoginForm({
 	useEffect(() => {
 		console.log(user);
 		if (user) {
-			toast({ title: "You're already logged in!" });
+			toast.error("You're already logged in!");
 			redirect('/');
 		}
 	}, [user, toast]);

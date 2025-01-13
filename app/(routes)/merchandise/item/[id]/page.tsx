@@ -3,7 +3,7 @@ import config from '@payload-config';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Media } from '@/payload-types';
-import { Button } from '@/components/ui/button';
+import AddToCart from '@/components/addToCart';
 
 export default async function Page({
 	params,
@@ -29,7 +29,7 @@ export default async function Page({
 					${parseInt(item.price + '').toFixed(2)} USD
 				</h2>
 				<p className="mt-2">{item.description}</p>
-				<Button className="w-fit p-2 mt-4">Add to cart</Button>
+				<AddToCart {...item} />
 			</div>
 			{item.images && (
 				<div className="h-full w-full relative p-8">

@@ -23,7 +23,7 @@ import {
 } from './ui/form';
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
 
 export const loginSchema = z
@@ -44,7 +44,6 @@ export function RegisterForm({
 	className,
 	...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-	const { toast } = useToast();
 	const [loading, setLoading] = useState(false);
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
@@ -60,7 +59,7 @@ export function RegisterForm({
 
 	useEffect(() => {
 		if (user) {
-			toast({ title: "You're already logged in!" });
+			toast.error("You're already logged in!");
 			redirect('/');
 		}
 	}, [user, toast]);
@@ -87,14 +86,12 @@ export function RegisterForm({
 		const responseData = await postData.json();
 		console.log(responseData);
 		if (!postData.ok) {
-			toast({
-				title: 'Failed to register!',
+			toast.error('Failed to register!', {
 				description: responseData.errors[0].message,
 			});
 			setLoading(false);
 		} else {
-			toast({
-				title: 'Regstration complete!',
+			toast.success('Registration complete!', {
 				description:
 					"Welcome aboard! We're logging you in right now...",
 			});

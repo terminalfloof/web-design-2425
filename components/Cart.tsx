@@ -23,11 +23,10 @@ import {
 } from './ui/sheet';
 import { CartContext } from './CartContext';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 export default function Cart() {
 	const [isLoading, setLoading] = React.useState(false);
-	const { toast } = useToast();
 	const router = useRouter();
 	function checkout() {
 		if (isLoading) return;
@@ -55,7 +54,7 @@ export default function Cart() {
 			<SheetTrigger asChild>
 				<button
 					aria-label="your cart"
-					className="top-2 absolute right-4 z-10 grid size-8 cursor-pointer place-items-center rounded-md transition-all hover:bg-muted active:scale-95"
+					className="top-2 absolute right-4 grid size-8 cursor-pointer place-items-center rounded-md transition-all hover:black bg-background active:scale-95"
 				>
 					<ShoppingCart className="scale-90" />
 					{items.length > 0 && (
@@ -79,7 +78,7 @@ export default function Cart() {
 									<AlertDialog key={index}>
 										<div
 											key={index}
-											className="group my-3 flex cursor-pointer select-none items-center justify-between"
+											className="z-10 group my-3 flex cursor-pointer select-none items-center justify-between"
 										>
 											<div>
 												<div className="flex items-center gap-2">
@@ -93,15 +92,17 @@ export default function Cart() {
 															: currentItem.item
 																	.name}
 													</h2>
-													<AlertDialogTrigger
-														className="opacity-0 transition-opacity duration-300 focus:opacity-100 active:opacity-100"
-														tabIndex={-1}
-														aria-label={`remove ${currentItem.item.name} from cart`}
-													>
-														<X
-															strokeWidth={3}
-															className="mr-2 size-4 stroke-red-400"
-														/>
+													<AlertDialogTrigger asChild>
+														<Button
+															aria-label={`remove ${currentItem.item.name} from cart`}
+															variant="ghost"
+															className="opacity-25 p-1 size-4 bg-transparent transition-opacity duration-200 hover:opacity-100 focus:opacity-100 active:opacity-100"
+														>
+															<X
+																strokeWidth={3}
+																className="size-4 stroke-red-400"
+															/>
+														</Button>
 													</AlertDialogTrigger>
 												</div>
 
@@ -146,15 +147,13 @@ export default function Cart() {
 																	.name
 															)
 														) {
-															toast({
-																title: 'Success!',
-																description: `Added ${currentItem.item.name} to cart`,
-															});
+															toast.success(
+																`Removed ${currentItem.item.name} from cart`
+															);
 														} else {
-															toast({
-																title: 'Error!',
-																description: `Failed to remove ${currentItem.item.name} from cart`,
-															});
+															toast.error(
+																`Failed to remove ${currentItem.item.name} from cart`
+															);
 														}
 													}}
 												>
