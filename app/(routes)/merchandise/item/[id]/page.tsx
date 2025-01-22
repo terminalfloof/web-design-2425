@@ -2,8 +2,17 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Media } from '@/payload-types';
+import { Media, MerchCategory } from '@/payload-types';
 import AddToCart from '@/components/addToCart';
+import {
+	Breadcrumb,
+	BreadcrumbList,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+	BreadcrumbPage,
+} from '@/components/ui/breadcrumb';
+import Link from 'next/link';
 
 export default async function Page({
 	params,
@@ -17,11 +26,43 @@ export default async function Page({
 		id,
 	});
 
+	const category = item.category as MerchCategory;
+
 	if (!item) return notFound();
+
+	console.log(item);
 
 	return (
 		<div className="grid grid-cols-2 h-full">
 			<div className="flex flex-col px-20 justify-center">
+				<Breadcrumb className="mb-4">
+					<BreadcrumbList>
+						<BreadcrumbItem>
+							<BreadcrumbLink asChild>
+								<Link href="/merchandise">Merchandise</Link>
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						{category.name && (
+							<>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbLink asChild>
+										<Link
+											href={`/merchandise/${category.name.toLowerCase()}`}
+										>
+											{category.name}
+										</Link>
+									</BreadcrumbLink>
+								</BreadcrumbItem>
+							</>
+						)}
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>{item.name}</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
+
 				<h1 className="text-4xl font-bold tracking-wider">
 					{item.name}
 				</h1>

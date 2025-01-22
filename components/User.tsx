@@ -1,6 +1,12 @@
 'use client';
 
-import { ChevronsUpDown, LogOut, LogIn, SquarePen } from 'lucide-react';
+import {
+	ChevronsUpDown,
+	LogOut,
+	LogIn,
+	SquarePen,
+	FileBox,
+} from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -78,6 +84,14 @@ export default function User() {
 								</DropdownMenuItem>
 							))}
 							<DropdownMenuSeparator />
+							{user.roles.includes('admin') && (
+								<DropdownMenuItem
+									onClick={() => redirect('/admin')}
+								>
+									<FileBox />
+									Admin Panel
+								</DropdownMenuItem>
+							)}
 							<DropdownMenuItem onClick={logout}>
 								<LogOut />
 								Log out

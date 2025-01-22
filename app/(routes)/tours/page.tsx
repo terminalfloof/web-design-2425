@@ -1,4 +1,3 @@
-'use server';
 import { getPayload } from 'payload';
 import React from 'react';
 import config from '@payload-config';
@@ -52,3 +51,5 @@ export default async function tours() {
 		</>
 	);
 }
+
+export const dynamic = 'force-dynamic';

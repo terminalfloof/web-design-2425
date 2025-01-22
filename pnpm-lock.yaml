@@ -25,7 +25,7 @@ importers:
         version: 3.16.0(@types/react@19.0.4)(monaco-editor@0.52.2)(next@15.1.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.16.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
       '@payloadcms/richtext-lexical':
         specifier: ^3.16.0
-        version: 3.16.0(196e0a3829e7b0e976d16f6fb03715a2)
+        version: 3.16.0(z6mpgv6gqkwu5qbnkpa2rgl6w4)
       '@payloadcms/storage-vercel-blob':
         specifier: ^3.16.0
         version: 3.16.0(payload@3.16.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3))
@@ -4457,7 +4457,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/richtext-lexical@3.16.0(196e0a3829e7b0e976d16f6fb03715a2)':
+  '@payloadcms/richtext-lexical@3.16.0(z6mpgv6gqkwu5qbnkpa2rgl6w4)':
     dependencies:
       '@faceless-ui/modal': 3.0.0-beta.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@faceless-ui/scroll-info': 2.0.0-beta.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

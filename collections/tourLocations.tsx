@@ -157,6 +157,11 @@ const tickets: Tab = {
 					type: 'number',
 					label: 'Ticket Amount',
 				},
+				{
+					name: 'description',
+					type: 'text',
+					label: 'Ticket Group Description',
+				},
 			],
 			admin: {
 				components: {
@@ -193,10 +198,5 @@ export const tourLocations: CollectionConfig = {
 			url: 'http://localhost:3000/about',
 		},
 		useAsTitle: 'title',
-	},
-	versions: {
-		drafts: {
-			autosave: true,
-		},
 	},
 };

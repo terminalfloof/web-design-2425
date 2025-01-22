@@ -1,5 +1,4 @@
 import { CartItem } from '@/components/CartContext';
-import { Merchandise } from '@/payload-types';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
@@ -15,12 +14,13 @@ export async function POST(req: NextRequest) {
 					price_data: {
 						currency: 'usd',
 						product_data: {
-							name: item.item.name || 'missing name!!',
+							name: item.name || 'missing name!!',
 							// todo: fix this crappy patch
 							description:
-								(item.item as Merchandise).description || '',
+								item.description ||
+								'No description was provided for this item.',
 						},
-						unit_amount: Math.round((item.item.price || 0) * 100),
+						unit_amount: Math.round((item.price || 0) * 100),
 					},
 					adjustable_quantity: {
 						enabled: true,

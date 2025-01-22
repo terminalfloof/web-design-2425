@@ -155,6 +155,7 @@ export interface TourLocation {
           name?: string | null;
           price?: number | null;
           amount?: number | null;
+          description?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -162,7 +163,6 @@ export interface TourLocation {
   title?: string | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -363,13 +363,13 @@ export interface TourLocationsSelect<T extends boolean = true> {
               name?: T;
               price?: T;
               amount?: T;
+              description?: T;
               id?: T;
             };
       };
   title?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

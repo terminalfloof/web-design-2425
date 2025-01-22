@@ -12,7 +12,16 @@ export default function AddToCart(item: Merchandise) {
 		<Button
 			className="w-fit p-2 mt-4"
 			onClick={() => {
-				if (addItem(item)) toast.success(`Added ${item.name} to cart`);
+				const newItem = {
+					name: item.name,
+					price: item.price || 0,
+					description:
+						item.description ||
+						'No description was provided for this item.',
+					quantity: 1,
+				};
+				if (addItem(newItem))
+					toast.success(`Added ${item.name} to cart`);
 				else toast.error(`Failed to remove ${item.name} from cart`);
 			}}
 		>

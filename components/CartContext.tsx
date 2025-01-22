@@ -1,22 +1,18 @@
 'use client';
-import { Merchandise } from '@/payload-types';
 import { ReactNode, createContext, useState } from 'react';
+import { toast } from 'sonner';
 
 export type CartItem = {
-	item: Merchandise | TicketGroup;
+	name: string;
+	price: number;
+	description?: string;
+	stripeId?: string;
 	quantity: number;
-};
-
-export type TicketGroup = {
-	name?: string | null;
-	price?: number | null;
-	amount?: number | null;
-	id?: string | null;
 };
 
 export const CartContext = createContext<{
 	items: CartItem[];
-	addItem: (item: Merchandise | TicketGroup) => boolean;
+	addItem: (item: CartItem) => boolean;
 	removeItem: (name: string) => boolean;
 }>({
 	items: [],
@@ -35,17 +31,20 @@ export default function CartContextComponent({
 }) {
 	const [items, setItems] = useState<CartItem[]>([]);
 
-	function addItem(item: Merchandise | TicketGroup): boolean {
-		const index = items.findIndex((i) => i.item.name === item.name);
+	function addItem(item: CartItem): boolean {
+		const index = items.findIndex((i) => i.name === item.name);
 		if (index === -1) {
 			if (items.length < 100) {
-				items.push({ item, quantity: 1 });
+				items.push(item);
 				setItems([...items]);
 				return true;
 			}
 			return false;
 		} else {
-			if (items[index].quantity >= 30) return false;
+			if (items[index].quantity >= 30) {
+				toast.error('You cannot add more than 30 of the same item!');
+				return false;
+			}
 			items[index].quantity++;
 			setItems([...items]);
 			return true;
@@ -53,7 +52,7 @@ export default function CartContextComponent({
 	}
 
 	function removeItem(name: string): boolean {
-		const index = items.findIndex((i) => i.item.name === name);
+		const index = items.findIndex((i) => i.name === name);
 		if (index === -1) {
 			return false;
 		}

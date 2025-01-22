@@ -24,7 +24,6 @@ import {
 import { CartContext } from './CartContext';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Merchandise } from '@/payload-types';
 
 export default function Cart() {
 	const [isLoading, setLoading] = React.useState(false);
@@ -55,7 +54,7 @@ export default function Cart() {
 			<SheetTrigger asChild>
 				<button
 					aria-label="your cart"
-					className="top-2 absolute right-4 grid size-8 cursor-pointer place-items-center rounded-md transition-all hover:black bg-background active:scale-95"
+					className="top-4 absolute right-4 grid size-8 cursor-pointer place-items-center rounded-md transition-all hover:black bg-background active:scale-95"
 				>
 					<ShoppingCart className="scale-90" />
 					{items.length > 0 && (
@@ -87,15 +86,13 @@ export default function Cart() {
 														{currentItem.quantity >
 														1
 															? currentItem.quantity +
-															  'x ' +
-															  currentItem.item
-																	.name
-															: currentItem.item
-																	.name}
+																'x ' +
+																currentItem.name
+															: currentItem.name}
 													</h2>
 													<AlertDialogTrigger asChild>
 														<Button
-															aria-label={`remove ${currentItem.item.name} from cart`}
+															aria-label={`remove ${currentItem.name} from cart`}
 															variant="ghost"
 															className="opacity-25 p-1 size-4 bg-transparent transition-opacity duration-200 hover:opacity-100 focus:opacity-100 active:opacity-100"
 														>
@@ -108,20 +105,14 @@ export default function Cart() {
 												</div>
 
 												<h2 className="mr-4 text-sm font-light">
-													{
-														// todo: fix this crappy patch
-														(
-															currentItem.item as Merchandise
-														).description
-													}
+													{currentItem.description}
 												</h2>
 											</div>
 
 											<h3 className="text-sm font-bold text-white">
 												$
 												{(
-													(currentItem.item.price ||
-														0) *
+													currentItem.price *
 													currentItem.quantity
 												).toFixed(2)}
 											</h3>
@@ -133,9 +124,8 @@ export default function Cart() {
 												</AlertDialogTitle>
 												<AlertDialogDescription>
 													This will remove{' '}
-													{currentItem.item.name} from
-													your cart. This cannot be
-													undone.
+													{currentItem.name} from your
+													cart. This cannot be undone.
 												</AlertDialogDescription>
 											</AlertDialogHeader>
 											<AlertDialogFooter>
@@ -146,16 +136,16 @@ export default function Cart() {
 													onClick={() => {
 														if (
 															removeItem(
-																currentItem.item
-																	.name || ''
+																currentItem.name ||
+																	''
 															)
 														) {
 															toast.success(
-																`Removed ${currentItem.item.name} from cart`
+																`Removed ${currentItem.name} from cart`
 															);
 														} else {
 															toast.error(
-																`Failed to remove ${currentItem.item.name} from cart`
+																`Failed to remove ${currentItem.name} from cart`
 															);
 														}
 													}}
@@ -175,8 +165,7 @@ export default function Cart() {
 								{items
 									.reduce(
 										(a, b) =>
-											a +
-											(b.item.price || 0) * b.quantity,
+											a + (b.price || 0) * b.quantity,
 										0
 									)
 									.toFixed(2)}

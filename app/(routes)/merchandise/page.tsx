@@ -21,26 +21,26 @@ const Merchandise = async () => {
 	return (
 		<>
 			{categories.totalDocs > 0 && (
-				<div className="flex gap-6 underline-offset-2 underline justify-center w-full py-2">
+				<div className="flex gap-6 underline-offset-2 justify-center w-full pt-4">
 					{categories.docs.map((category) => (
 						<Link
 							href={`/merchandise/${category.name?.toLowerCase()}`}
 							key={category.id}
-							className="flex flex-col gap-4"
+							className="flex flex-col gap-4 hover:scale-110 transition-transform"
 						>
 							{category.name}
 						</Link>
 					))}
 				</div>
 			)}
-			<div className="aspect-w-4 aspect-h-1 relative">
+			{/* <div className="aspect-w-4 aspect-h-1 relative">
 				<Image
 					src="/api/media/file/Nashville.jpg"
 					alt="nashville (temp image)"
 					fill
 					className="object-cover"
 				/>
-			</div>
+			</div> */}
 			<div className="grid grid-cols-4 gap-6">
 				{merchandise.totalDocs > 0 &&
 					merchandise.docs.map((merch) => (
